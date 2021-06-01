@@ -6,7 +6,7 @@
 breakpoint set -n find_word
 run
 script
-tree_utils = require('tree_utils')
+tree_utils = require("tree_utils")
 root = lldb.frame:FindVariable ("dictionary")
 current_path = ""
 path = tree_utils.DFS (root, "Romeo", current_path)
