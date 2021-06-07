@@ -71,10 +71,10 @@ should be aware of. First of all, they hold the values of the selected objects
 on entry to the embedded interpreter. They do not update as you use the LLDB
 API's to change, for example, the currently selected stack frame or thread.
 
-Moreover, they are only defined and meaningful while in the interactive Python
+Moreover, they are only defined and meaningful while in the interactive Lua
 interpreter. There is no guarantee on their value in any other situation, hence
-you should not use them when defining Python formatters, breakpoint scripts and
-commands (or any other Python extension point that LLDB provides). For the
+you should not use them when defining Lua formatters, breakpoint scripts and
+commands (or any other Lua extension point that LLDB provides). For the
 latter you'll be passed an `SBDebugger`, `SBTarget`, `SBProcess`, `SBThread` or
 `SBframe` instance and you can use the functions from the "Equivalent" column
 to navigate between them.
@@ -85,7 +85,7 @@ value out from under you.
 
 To get started with these objects and LLDB scripting, please note that almost
 all of the lldb Lua objects are able to briefly describe themselves when you
-pass them to the Python print function:
+pass them to the Lua print function:
 
 ::
 
@@ -105,12 +105,12 @@ pass them to the Python print function:
 Running a Lua script when a breakpoint gets hit
 --------------------------------------------------
 
-One very powerful use of the lldb Python API is to have a python script run
-when a breakpoint gets hit. Adding python scripts to breakpoints provides a way
+One very powerful use of the lldb Lua API is to have a Lua script run
+when a breakpoint gets hit. Adding Lua scripts to breakpoints provides a way
 to create complex breakpoint conditions and also allows for smart logging and
 data gathering.
 
-When your process hits a breakpoint to which you have attached some python
+When your process hits a breakpoint to which you have attached some Lua
 code, the code is executed as the body of a function which takes three
 arguments:
 
@@ -143,8 +143,6 @@ or:
 |                   |                               | you could take the function name from a field in the `extra_args`, making the callback more general.  The `-k` and `-v` options           |
 |                   |                               | to `breakpoint command add` will be passed as a Dictionary in the `extra_args` parameter, or you can provide it with the SB API's.        |
 +-------------------+-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| `internal_dict`   | `dict`                        | The python session dictionary as a standard python dictionary object.                                                                     |
-+-------------------+-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 
 Optionally, a Lua breakpoint command can return a value. Returning `false`
 tells LLDB that you do not want to stop at the breakpoint. Any other return
@@ -154,7 +152,7 @@ situations where a breakpoint only needs to stop the process when certain
 conditions are met, and you do not want to inspect the program state manually
 at every stop and then continue.
 
-An example will show how simple it is to write some python code and attach it
+An example will show how simple it is to write some Lua code and attach it
 to a breakpoint. The following example will allow you to track the order in
 which the functions in a given shared library are first executed during one run
 of your program. This is a simple method to gather an order file which can be
@@ -192,18 +190,18 @@ Here is the code:
    ..> return false
    ..> quit
 
-The breakpoint command add command above attaches a python script to breakpoint 1. To remove the breakpoint command:
+The breakpoint command add command above attaches a Lua script to breakpoint 1. To remove the breakpoint command:
 
 ::
 
    (lldb) breakpoint command delete 1
 
 
-Using the python api's to create custom breakpoints
+Using the Lua api's to create custom breakpoints
 ---------------------------------------------------
 
 
-Another use of the Python API's in lldb is to create a custom breakpoint
+Another use of the Lua API's in lldb is to create a custom breakpoint
 resolver. This facility was added in r342259.
 
 It allows you to provide the algorithm which will be used in the breakpoint's
@@ -270,7 +268,7 @@ about that anyway.
 At present, when adding a scripted Breakpoint type, you can only provide a
 custom Resolver, not a custom SearchFilter.
 
-The custom Resolver is provided as a Python class with the following methods:
+The custom Resolver is provided as a Lua class with the following methods:
 
 +--------------------+---------------------------------------+------------------------------------------------------------------------------------------------------------------+
 | Name               | Arguments                             | Description                                                                                                      |
@@ -353,12 +351,12 @@ of Modules and the list of CompileUnits that will make up the SearchFilter. If
 you pass in empty lists, the breakpoint will use the default "search
 everywhere,accept everything" filter.
 
-Using the python API' to create custom stepping logic
+Using the Lua API' to create custom stepping logic
 -----------------------------------------------------
 
-A slightly esoteric use of the Python API's is to construct custom stepping
+A slightly esoteric use of the Lua API's is to construct custom stepping
 types. LLDB's stepping is driven by a stack of "thread plans" and a fairly
-simple state machine that runs the plans. You can create a Python class that
+simple state machine that runs the plans. You can create a Lua class that
 works as a thread plan, and responds to the requests the state machine makes to
 run its operations.
 
