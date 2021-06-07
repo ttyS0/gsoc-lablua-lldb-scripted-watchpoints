@@ -116,14 +116,7 @@ arguments:
 
 ::
 
-  function breakpoint_function_wrapper(frame, bp_loc, internal_dict):
-     -- Your code goes here
-
-or:
-
-::
-
-  function breakpoint_function_wrapper(frame, bp_loc, extra_args, internal_dict):
+  function breakpoint_function_wrapper(frame, bp_loc, ...):
      -- Your code goes here
 
 
