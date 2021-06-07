@@ -49,6 +49,8 @@ end
 return { DFS = DFS }
 ```
 
+![Demo 1](./lua-scripting-demo-1.png)
+
 ## Breakpoints trigger
 
 ```
@@ -78,12 +80,61 @@ if (path:sub(1, 1) == 'R') then
 else
     print("Here is the problem. Going right, should go left!")
 end
+
+if (a == b) then
+
+end
 quit
 ```
 
-## Demo
-
-![Demo 1](./lua-scripting-demo-1.png)
-
-
 ![Demo 2](./lua-scripting-demo-2.png)
+
+# Reference Draft
+
+[](./lua-reference.rst)
+
+## Embedded Interpreter
+
+```
+breakpoint set -n main
+run
+```
+
+```lua
+print(lldb.debugger)
+print(lldb.target)
+print(lldb.process)
+print(lldb.thread)
+print(lldb.frame)
+```
+
+![](./lua-reference-demo-interpreter.png)
+
+## Breakpoint Hit Counter
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    printf("%lf %lf %lf", sqrt(2), pow(2, 3), sin(M_PI / 2));
+    return 0;
+}
+```
+
+```
+breakpoint set --func-regex=. --shlib=libm.so.6
+script counter = 0
+breakpoint command add -s lua 1
+```
+
+```lua
+counter = counter + 1 
+name = frame:GetFunctionName() 
+print(string.format('[%i] %s', counter, name)) 
+bp_loc:SetEnabled(false) 
+return false
+```
+
+![](./lua-reference-demo-bp-counter.png)
