@@ -91,8 +91,6 @@ quit
 
 # Reference Draft
 
-[Preview](./lua-reference.rst)
-
 ## Embedded Interpreter
 
 ```
