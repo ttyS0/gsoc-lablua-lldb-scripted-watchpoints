@@ -1,10 +1,22 @@
 # Scripted watchpoints
 
-## TO-IMPL
+## TO-DO
 
-* `ScriptInterpreterLua::SetWatchpointCommandCallback` series function
+- I/O related
+    - [ ] `ScriptInterpreterLua::IOHandlerActivated`
+    - [ ] `ScriptInterpreterLua::IOHandlerInputComplete`
 
-* `ScriptInterpreterLua::CollectDataForBreakpointCommandCallback`
+- Core - Interpreter
+    - [ ] `ScriptInterpreterLua::GenerateWatchpointCommandCallbackData`
+    - [ ] `ScriptInterpreterLua::CollectDataForWatchpointCommandCallback`
+    - [ ] `ScriptInterpreterLua::SetWatchpointCommandCallback`
+
+- Core - Lua
+    - [ ] `Lua::RegisterWatchpointCallback`
+    - [ ] `Lua::CallWatchpointCallback`
+
+- SWIG
+    - [ ] `LLDBSwigLuaWatchpointCallbackFunction`
 
 ## A simple sample in Python
 
