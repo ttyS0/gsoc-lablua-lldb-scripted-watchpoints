@@ -1,6 +1,8 @@
 Lua Reference
 ================
 
+.. default-role:: samp
+
 Lua is a lightweight but powerful language. At present, Lua is only serving as
 an embedded interpreter in LLDB.
 
