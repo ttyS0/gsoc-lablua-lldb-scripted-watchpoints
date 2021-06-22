@@ -10,3 +10,4 @@ Tracks, thoughts and materials for GSoC 2021 LabLua - Lua Scripted Watchpoints i
   - [Integrated section for scripting docs](https://gsoc2021.sigeryeung.tk/lldb-docs)
 * Scripted watchpoints support for Lua.
   - [Draft](./drafts/lua-scripted-watchpoints.md)
+  - [Latest diff](./tasks/patch.diff)
