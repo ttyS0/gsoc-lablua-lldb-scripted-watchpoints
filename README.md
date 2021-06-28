@@ -11,3 +11,7 @@ Tracks, thoughts and materials for GSoC 2021 LabLua - Lua Scripted Watchpoints i
 * Scripted watchpoints support for Lua.
   - [Draft](./drafts/lua-scripted-watchpoints.md)
   - [Latest diff](./tasks/patch.diff)
+
+Revisions:
+  - [[lldb][docs] Add reference docs for Lua scripting](https://reviews.llvm.org/D104281)
+  - [[lldb/lua] Add scripted watchpoints for Lua](https://reviews.llvm.org/D105034)
