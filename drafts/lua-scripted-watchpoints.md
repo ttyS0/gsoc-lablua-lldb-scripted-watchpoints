@@ -294,7 +294,7 @@ siger@vostro ~/D/P/g/test> gsoc-lldb --script-language lua ./counter
 (lldb) target create "./counter"
 Current executable set to '/home/siger/Data/Projects/gsoc-lablua-lldb/test/counter' (x86_64).
 (lldb) script counter_10 = 0
-(lldb) breakpoint set --name main
+(lldb) breakpoint set --name main -o
 Breakpoint 1: where = counter`main + 11 at counter.c:5:9, address = 0x000000000000112b
 (lldb) run
 Process 78104 launched: '/home/siger/Data/Projects/gsoc-lablua-lldb/test/counter' (x86_64)
