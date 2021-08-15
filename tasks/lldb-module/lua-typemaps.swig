@@ -80,7 +80,7 @@ LLDB_NUMBER_TYPEMAP(enum SWIGTYPE);
    if ($2 <= 0) {
       return luaL_error(L, "Positive integer expected");
    }
-   $1 = (char *)malloc($2);
+   $1 = (char *) malloc($2);
 }
 
 // SBProcess::ReadCStringFromMemory() uses a void*, but needs to be treated
@@ -169,10 +169,15 @@ LLDB_NUMBER_TYPEMAP(enum SWIGTYPE);
 
 //===----------------------------------------------------------------------===//
 
+// Typemap for handling SBEvent::SBEvent(uint32_t event, const char *cstr, uint32_t cstr_len)
+
+%typemap(in) (const char *cstr, uint32_t cstr_len) {
+   $1 = (char *)luaL_checklstring(L, $input, (size_t *)&$2);
+}
+
 // Typemap for handling SBProcess::PutSTDIN
 
-%typemap(in) (const char *cstr, uint32_t cstr_len),
-             (const char *src, size_t src_len) {
+%typemap(in) (const char *src, size_t src_len) {
    $1 = (char *)luaL_checklstring(L, $input, &$2);
 }
 
@@ -229,7 +234,7 @@ LLDB_NUMBER_TYPEMAP(enum SWIGTYPE);
 %typemap(out) lldb::FileSP {
    lldb::FileSP &sp = $1;
    if (sp && sp->IsValid()) {
-      luaL_Stream *p = (luaL_Stream *) lua_newuserdatauv(L, sizeof(luaL_Stream), 0);
+      luaL_Stream *p = (luaL_Stream *)lua_newuserdatauv(L, sizeof(luaL_Stream), 0);
       p->closef = &LLDBSwigLuaCloseFileHandle;
       p->f = sp->GetStream();
       luaL_setmetatable(L, LUA_FILEHANDLE);
@@ -271,6 +276,8 @@ LLDB_NUMBER_TYPEMAP(enum SWIGTYPE);
       $2 = 0;
    }
    else {
-      $1 = (char *) luaL_checklstring(L, $input, (size_t *)&$2);
+      $1 = (char *)luaL_checklstring(L, $input, (size_t *)&$2);
    }
 }
+
+//===----------------------------------------------------------------------===//
