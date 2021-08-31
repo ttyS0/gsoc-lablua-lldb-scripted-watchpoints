@@ -58,7 +58,7 @@ source
 
 int main(void)
 {
-    // `volatile` to prevent compilter optimizations
+    // `volatile` to prevent compiler optimizations
     volatile int sum = 0;
 
     for(int i = 1; i <= 100; i++)
